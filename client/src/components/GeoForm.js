@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
 import { SERVER_URL_PREFIX } from '../config'
-
-import './Geoform.css'
+import GeoResults from './GeoResults'
 
 
 class GeoForm extends Component {
@@ -75,45 +74,6 @@ class GeoForm extends Component {
   }
 
   render() {
-    // If address/geocode is set, display them under the form.
-    let addrContent = null
-    if (this.state.address) {
-      addrContent = (
-        <div>
-          Address: {this.state.address}
-        </div>
-      )
-    }
-
-    // If there are alternatives, display them in table.
-    const altList = this.state.alts.map((item, index) => {
-      return (
-        <tr key={index} onClick={() => this.handleClick(index)}>
-          <td>{item["address"]}</td>
-          <td>{item["geocode"]}</td>
-        </tr>
-      )
-    })
-    let altContent = null
-    if (altList.length !== 0) {
-      altContent = (
-        <div className="table-section">
-          <h2>Do You Mean...?</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>address</th>
-                <th>geocode</th>
-              </tr>
-            </thead>
-            <tbody>
-              {altList}
-            </tbody>
-          </table>
-        </div>
-      )
-    }
-
     return (
       <form onSubmit={this.handleSubmit} className="geoform">
         <input
@@ -124,10 +84,10 @@ class GeoForm extends Component {
           placeholder="input an address"
         />
         <input type="submit" value={"Get Geocode"} />
-        <div className="state-section">
-          {addrContent}
-        </div>
-        {altContent}
+        <GeoResults
+          results={this.state.alts}
+          handleClick={this.handleClick}
+        />
       </form>
     )
   }

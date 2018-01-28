@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import GeoForm from '../components/Geoform'
+import GeoForm from '../components/GeoForm'
 import RevGeoForm from '../components/RevGeoForm'
 
 import './App.css'
