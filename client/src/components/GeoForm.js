@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { SERVER_URL_PREFIX } from '../config'
+import { getGeoResults } from '../lib/getGeoResults'
 import GeoResults from './GeoResults'
 
 
@@ -33,7 +34,12 @@ class GeoForm extends Component {
     fetch(url, options)
       .then((response) => response.json())
       .then((json) => {
-        this.handleResponseData(json)
+        const results = getGeoResults(json)
+        this.setState({
+          address: results["address"],
+          geocode: results["geocode"],
+          alts: results["alts"]
+        })
       })
       .catch((error) => {
         console.error(error)
@@ -41,23 +47,6 @@ class GeoForm extends Component {
     
     event.preventDefault()
     event.stopPropagation()
-  }
-
-  handleResponseData(json) {
-    const results = json["results"]
-    const alts = results.map((item) => {
-      return ({
-        "address": item["formatted_address"],
-        "geocode": item["geometry"]["location"]["lat"].toString() + ", " +
-            item["geometry"]["location"]["lng"].toString()
-      })
-    })
-    console.log(alts)
-    this.setState({
-      address: !!alts ? alts[0]["address"] : "",
-      geocode: !!alts ? alts[0]["geocode"] : "",
-      alts
-    })
   }
 
   handleAddrChange(event) {
