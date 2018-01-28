@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
 import { SERVER_URL_PREFIX } from '../config'
-// import './GeoForm.css'
+
+import './Geoform.css'
 
 
 class GeoForm extends Component {
@@ -9,7 +10,7 @@ class GeoForm extends Component {
     super(props)
     this.state = {
       address: "",
-      geocode: {},
+      geocode: "",
       alts: [] // All alternative geocoding results [{address, geocode}].
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,7 +19,6 @@ class GeoForm extends Component {
   }
 
   handleSubmit(event) {
-    alert("Getting the geocode of address " + this.state.address)
     const url = SERVER_URL_PREFIX + "api/geocode"
     const options = {
       method: "POST",
@@ -34,7 +34,6 @@ class GeoForm extends Component {
     fetch(url, options)
       .then((response) => response.json())
       .then((json) => {
-        console.log("response: ", json)
         this.handleResponseData(json)
       })
       .catch((error) => {
@@ -50,12 +49,14 @@ class GeoForm extends Component {
     const alts = results.map((item) => {
       return ({
         "address": item["formatted_address"],
-        "geocode": item["geometry"]["location"]
+        "geocode": item["geometry"]["location"]["lat"].toString() + ", " +
+            item["geometry"]["location"]["lng"].toString()
       })
     })
+    console.log(alts)
     this.setState({
       address: !!alts ? alts[0]["address"] : "",
-      geocode: !!alts ? JSON.stringify(alts[0]["geocode"]) : "",
+      geocode: !!alts ? alts[0]["geocode"] : "",
       alts
     })
   }
@@ -69,25 +70,17 @@ class GeoForm extends Component {
   handleClick(index) {
     this.setState({
       address: this.state.alts[index]["address"],
-      geocode: JSON.stringify(this.state.alts[index]["geocode"])
+      geocode: this.state.alts[index]["geocode"]
     })
   }
 
   render() {
     // If address/geocode is set, display them under the form.
     let addrContent = null
-    let geoContent = null
     if (this.state.address) {
       addrContent = (
         <div>
           Address: {this.state.address}
-        </div>
-      )
-    }
-    if (Object.keys(this.state.geocode).length !== 0) {
-      geoContent = (
-        <div>
-          Geocode: {JSON.stringify(this.state.geocode)}
         </div>
       )
     }
@@ -97,22 +90,20 @@ class GeoForm extends Component {
       return (
         <tr key={index} onClick={() => this.handleClick(index)}>
           <td>{item["address"]}</td>
-          <td>{item["geocode"]["lat"]}</td>
-          <td>{item["geocode"]["lng"]}</td>
+          <td>{item["geocode"]}</td>
         </tr>
       )
     })
     let altContent = null
     if (altList.length !== 0) {
       altContent = (
-        <div>
-          <p>Do You Mean...?</p>
+        <div className="table-section">
+          <h2>Do You Mean...?</h2>
           <table>
             <thead>
               <tr>
-                <td>address</td>
-                <td>lat</td>
-                <td>lng</td>
+                <th>address</th>
+                <th>geocode</th>
               </tr>
             </thead>
             <tbody>
@@ -124,15 +115,17 @@ class GeoForm extends Component {
     }
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Input an address:
-          <input type="text" value={this.state.address} onChange={this.handleAddrChange} />
-        </label>
-        <input type="submit" value="Get Geocode" />
-        <div>
+      <form onSubmit={this.handleSubmit} className="geoform">
+        <input
+          className="text-input"
+          type="text"
+          value={this.state.address}
+          onChange={this.handleAddrChange}
+          placeholder="input an address"
+        />
+        <input type="submit" value={"Get Geocode"} />
+        <div className="state-section">
           {addrContent}
-          {geoContent}
         </div>
         {altContent}
       </form>

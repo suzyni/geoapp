@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
 import GeoForm from '../components/Geoform'
+import RevGeoForm from '../components/RevGeoForm'
+
 import './App.css'
 
 class App extends Component {
@@ -11,6 +13,7 @@ class App extends Component {
           <h2>Welcome to Geocoding App from Suzy</h2>
         </div>
         <GeoForm />
+        <RevGeoForm />
       </div>
     )
   }
