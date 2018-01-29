@@ -5,7 +5,7 @@ def dist_calc(slat, slng, dlat, dlng):
   # Approximate radius of earth in km.
   R = 6373.0
 
-  # Radians for the 
+  # Radians for the lat/lng.
   slat = radians(slat)
   slng = radians(slng)
   dlat = radians(dlat)
