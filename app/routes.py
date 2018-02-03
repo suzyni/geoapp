@@ -36,11 +36,14 @@ def revGeocode():
 def distCalc():
 
   request_json = request.get_json()
+  if not request_json.get("start", "") or not request_json.get("dest", ""):
+    print "Missing request param(s)!"
+    return
   slat, slng = request_json.get("start").split(",")
   dlat, dlng = request_json.get("dest").split(",")
   
   dist = dist_calc(float(slat.strip()), float(slng.strip()),
       float(dlat.strip()), float(dlng.strip()))
-  print "dist=", dist      
+  print "dist=", dist
 
   return jsonify({"dist": dist})

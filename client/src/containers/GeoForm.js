@@ -19,6 +19,10 @@ class GeoForm extends Component {
   }
 
   handleSubmit(event) {
+    if (this.props.isSubmitting === true) {
+      return Promise.resolve()
+    }
+    this.props.requireSetGeocode()
     const url = SERVER_URL_PREFIX + "api/geocode"
     const options = {
       method: "POST",
@@ -40,6 +44,7 @@ class GeoForm extends Component {
           geocode: results["geocode"],
           alts: results["alts"]
         })
+        this.props.setGeocode(this.state.geocode)
       })
       .catch((error) => {
         console.error(error)
