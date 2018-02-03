@@ -48,6 +48,7 @@ class GeoForm extends Component {
       })
       .catch((error) => {
         console.error(error)
+        this.props.setGeocodeFailed(error)
       })
     
     event.preventDefault()

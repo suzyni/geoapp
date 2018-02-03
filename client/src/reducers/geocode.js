@@ -11,6 +11,16 @@ const geocodes = (state = {}, action) => {
         })
         return new_state
       }
+    case "UPDATE_START_GEO_FAILED":
+    case "UPDATE_END_GEO_FAILED":
+      if (state.isSubmitting === false) {
+        return state
+      } else {
+        new_state = Object.assign({}, state, {
+          isSubmitting: false
+        })
+        return new_state
+      }
     case "UPDATE_START_GEO":
       if (state.isSubmitting === false) {
         return state

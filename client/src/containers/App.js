@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import {
   requireUpdateEndGeocode, requireUpdateStartGeocode, updateEndGeocode,
-  updateStartGeocode
+  updateEndGeocodeFailed, updateStartGeocode, updateStartGeocodeFailed
 } from "../actions"
 import { SERVER_URL_PREFIX } from "../config"
 import {
@@ -61,11 +61,13 @@ class AppComponent extends Component {
           <GeoForm
             isSubmitting={this.props.isSubmitting}
             setGeocode={this.props.setStartGeocode}
+            setGeocodeFailed={this.props.setStartGeocodeFailed}
             requireSetGeocode={this.props.requireSetStartGeocode}
           />
           <GeoForm
             isSubmitting={this.props.isSubmitting}
             setGeocode={this.props.setEndGeocode}
+            setGeocodeFailed={this.props.setEndGeocodeFailed}
             requireSetGeocode={this.props.requireSetEndGeocode}
           />
         </div>
@@ -89,12 +91,15 @@ const mapStateToProps = (state) => {
   }
 }
 
+// In order to reuse GeoForm component, pass in actions for start/end points.
 const mapDispatchToProps = (dispatch) => {
   return {
     requireSetStartGeocode: () => {dispatch(requireUpdateStartGeocode())},
     setStartGeocode: (geocode) => {dispatch(updateStartGeocode(geocode))},
+    setStartGeocodeFailed: (error) => {dispatch(updateStartGeocodeFailed())},
     requireSetEndGeocode: () => {dispatch(requireUpdateEndGeocode())},
-    setEndGeocode: (geocode) => {dispatch(updateEndGeocode(geocode))}
+    setEndGeocode: (geocode) => {dispatch(updateEndGeocode(geocode))},
+    setEndGeocodeFailed: (error) => {dispatch(updateEndGeocodeFailed())}
   }
 }
 
