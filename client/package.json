@@ -1,13 +1,21 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "0.0.1",
+  "description": "Simple Google geocoding app with Flask React Redux",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/suzyni/geoapp.git"
+  },
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
     "react-scripts": "0.9.5"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
