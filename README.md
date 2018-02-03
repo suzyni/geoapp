@@ -7,7 +7,11 @@ $ pip install -r requirements.txt
 ```
 
 ## Run Back-End
-Set your Google map geocoding api key in `./app/config.py`.
+Set your Google map geocoding api key in `./app/config.py` as
+```
+GOOGLE_API_KEY = "your_api_key"
+```
+And then
 ```
 $ export FLASK_APP=main.py
 $ flask run

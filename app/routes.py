@@ -2,15 +2,8 @@ from flask import jsonify, render_template, request
 import googlemaps
 
 import config
-import lib
+from utils import dist_calc
 from index import mygeoapp
-
-
-@mygeoapp.route("/", methods=["GET"])
-@mygeoapp.route("/index", methods=["GET"])
-def index():
-
-  return render_template("index.html")
 
 
 @mygeoapp.route("/api/geocode", methods=["POST"])
@@ -46,7 +39,7 @@ def distCalc():
   slat, slng = request_json.get("start").split(",")
   dlat, dlng = request_json.get("dest").split(",")
   
-  dist = lib.dist_calc(float(slat.strip()), float(slng.strip()),
+  dist = dist_calc(float(slat.strip()), float(slng.strip()),
       float(dlat.strip()), float(dlng.strip()))
   print "dist=", dist      
 
