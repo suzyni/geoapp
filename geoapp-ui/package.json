@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "geoapp-ui",
   "version": "0.0.1",
   "description": "Simple Google geocoding app with Flask React Redux",
   "private": true,

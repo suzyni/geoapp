@@ -1,1 +1,4 @@
-from index import mygeoapp
+from geoapp.routes import app
+
+if __name__ == '__main__':
+    app.run()
