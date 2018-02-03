@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
-import GeoForm from '../components/GeoForm'
-import RevGeoForm from '../components/RevGeoForm'
+import GeoForm from "./GeoForm"
+import RevGeoForm from "./RevGeoForm"
 
-import './App.css'
+import "./App.css"
 
 class App extends Component {
   render() {

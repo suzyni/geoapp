@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
-import { SERVER_URL_PREFIX } from '../config'
-import { getGeoResults } from '../lib/getGeoResults'
-import GeoResults from './GeoResults'
+import GeoResults from "../components/GeoResults"
+import { SERVER_URL_PREFIX } from "../config"
+import { getGeoResults } from "../utils/getGeoResults"
 
 
-class RevGeoForm extends Component {
+class GeoForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -14,12 +14,12 @@ class RevGeoForm extends Component {
       alts: [] // All alternative geocoding results [{address, geocode}].
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleGeoChange = this.handleGeoChange.bind(this)
+    this.handleAddrChange = this.handleAddrChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleSubmit(event) {
-    const url = SERVER_URL_PREFIX + "api/rev-geocode"
+    const url = SERVER_URL_PREFIX + "api/geocode"
     const options = {
       method: "POST",
       headers: {
@@ -27,7 +27,7 @@ class RevGeoForm extends Component {
         "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({
-        "geocode": this.state.geocode
+        "address": this.state.address
       })
     }
 
@@ -49,9 +49,9 @@ class RevGeoForm extends Component {
     event.stopPropagation()
   }
 
-  handleGeoChange(event) {
+  handleAddrChange(event) {
     this.setState({
-      geocode: event.target.value
+      address: event.target.value
     })
   }
 
@@ -68,11 +68,11 @@ class RevGeoForm extends Component {
         <input
           className="text-input"
           type="text"
-          value={this.state.geocode}
-          onChange={this.handleGeoChange}
-          placeholder="input lat, lng"
+          value={this.state.address}
+          onChange={this.handleAddrChange}
+          placeholder="input an address"
         />
-        <input type="submit" value={"Get Address"} />
+        <input type="submit" value={"Get Geocode"} />
         <GeoResults
           results={this.state.alts}
           handleClick={this.handleClick}
@@ -82,4 +82,4 @@ class RevGeoForm extends Component {
   }
 }
 
-export default RevGeoForm
+export default GeoForm
