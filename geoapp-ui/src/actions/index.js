@@ -1,4 +1,3 @@
-
 export const requireUpdateStartGeocode = () => {
   return {
     type: "REQ_UPDATE_START_GEO",

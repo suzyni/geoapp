@@ -9,9 +9,10 @@ import { SERVER_URL_PREFIX } from "../config"
 import {
   getEndGeocode, getIsGeocodeSubmitting, getStartGeocode
 } from "../selectors"
-
 import GeoForm from "./GeoForm"
+
 import "./App.css"
+
 
 class AppComponent extends Component {
   constructor(props) {
