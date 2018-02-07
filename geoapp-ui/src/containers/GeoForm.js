@@ -23,6 +23,7 @@ class GeoForm extends Component {
       return Promise.resolve()
     }
     this.props.requireSetGeocode()
+    
     const url = SERVER_URL_PREFIX + "api/geocode"
     const options = {
       method: "POST",
