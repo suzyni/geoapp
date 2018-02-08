@@ -2,4 +2,4 @@
 venv
 .vscode
 
-geoapp/config.py
+geoapp/config_private.py
